@@ -20,7 +20,15 @@ double mySqrt(double x);
 ***/
 double myCos(double x) 
 {
-    return 0.0;
+    const int N = 10; 
+    double term = 1.0, sum = 1.0;
+    
+    for (int i = 1; i < N; ++i) {
+        term *= -x * x / (2 * i * (2 * i - 1));
+        sum += term;
+    }
+    
+    return sum;
 }
 
 /***
@@ -31,7 +39,15 @@ double myCos(double x)
 ***/
 double mySin(double x)
 {
-    return 0.0;
+    const int N = 10;
+    double term = x, sum = x;
+    
+    for (int i = 1; i < N; ++i) {
+        term *= -x * x / ((2 * i + 1) * (2 * i));
+        sum += term;
+    }
+    
+    return sum;
 }
 
 
@@ -47,6 +63,12 @@ double mySqrt(double x) {
         exit(1);
     }
 
+    double guess = x;
+    const double epsilon = 1e-6; 
+
+    while (fabs(guess * guess - x) > epsilon) {
+        guess = (guess + x / guess) / 2.0;
+    }
     
-    return 0;
+    return guess;
 }
